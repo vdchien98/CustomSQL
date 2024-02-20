@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.mysqlservice.model.Chusohuu" />
+	<import class="com.mysqlservice.model.Pet" />
+	<class name="com.mysqlservice.model.impl.ChusohuuImpl" table="Mysql_Chusohuu">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="pid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="pchusohuu" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="pthunuoi" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="com.mysqlservice.model.impl.PetImpl" table="Mysql_Pet">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="pid" type="int">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="pname" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>

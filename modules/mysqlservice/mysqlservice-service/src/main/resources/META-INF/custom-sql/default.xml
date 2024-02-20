@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.mysqlservice.service.persistence.PetFinder.getPetsByName"> 
+      <![CDATA[ 
+        
+         SELECT * FROM `mysql_pet`
+         LEFT JOIN `mysql_chusohuu` ON mysql_pet.pid = mysql_chusohuu.pthunuoi
+         WHERE CONCAT_WS(' ', mysql_pet.`pname`) LIKE ?;
+]]>
+	</sql>
+</custom-sql>
+<!--  
+SELECT * FROM `mysql_pet`
+         WHERE  pname LIKE ?; 
+-->

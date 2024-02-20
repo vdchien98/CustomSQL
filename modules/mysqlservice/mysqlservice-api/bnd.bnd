@@ -1,0 +1,10 @@
+Bundle-Name: mysqlservice-api
+Bundle-SymbolicName: com.mysqlservice.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.mysqlservice.exception,\
+	com.mysqlservice.model,\
+	com.mysqlservice.service,\
+	com.mysqlservice.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../mysqlservice-service/service.xml

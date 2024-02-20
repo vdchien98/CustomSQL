@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.mysqlservice.model.Chusohuu">
+		<field name="pid" type="int" />
+		<field name="pchusohuu" type="String" />
+		<field name="pthunuoi" type="int" />
+	</model>
+	<model name="com.mysqlservice.model.Pet">
+		<field name="pid" type="int" />
+		<field name="pname" type="String" />
+	</model>
+</model-hints>
