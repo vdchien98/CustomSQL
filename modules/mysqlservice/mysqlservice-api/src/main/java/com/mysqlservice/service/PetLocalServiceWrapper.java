@@ -34,6 +34,16 @@ public class PetLocalServiceWrapper
 		_petLocalService = petLocalService;
 	}
 
+	@Override
+	public com.mysqlservice.model.Pet addName(
+			String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.portal.kernel.exception.SystemException {
+
+		return _petLocalService.addName(name, serviceContext);
+	}
+
 	/**
 	 * Adds the pet to the database. Also notifies the appropriate model listeners.
 	 *

@@ -17,6 +17,7 @@ package com.mysqlservice.service;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -45,6 +46,13 @@ public class PetLocalServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.mysqlservice.service.impl.PetLocalServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static Pet addName(
+			String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		return getService().addName(name, serviceContext);
+	}
 
 	/**
 	 * Adds the pet to the database. Also notifies the appropriate model listeners.

@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -62,6 +63,8 @@ public interface PetLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.mysqlservice.service.impl.PetLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the pet local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link PetLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	public Pet addName(String name, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	/**
 	 * Adds the pet to the database. Also notifies the appropriate model listeners.

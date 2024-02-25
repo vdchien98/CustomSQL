@@ -28,9 +28,12 @@ public class PetFinderImpl extends PetFinderBaseImpl implements PetFinder {
 			          System.out.println("");
 			          SQLQuery sqlQuery=session.createSQLQuery(sql);
 			          sqlQuery.setCacheable(false);
-	                          sqlQuery.addEntity("Pet",PetImpl.class);
+	                  sqlQuery.addEntity("Pet",PetImpl.class);
+	                  System.out.println("sqlQuery==>"+sqlQuery);
 			          QueryPos queryPos=QueryPos.getInstance(sqlQuery);
+			          System.out.println("queryPos==>"+queryPos);
 			          queryPos.add(pName);
+			          System.out.println("queryPos 22222222222==>"+queryPos);
 			          return (List<Pet>)sqlQuery.list();
 			  }catch(Exception e){
 			   

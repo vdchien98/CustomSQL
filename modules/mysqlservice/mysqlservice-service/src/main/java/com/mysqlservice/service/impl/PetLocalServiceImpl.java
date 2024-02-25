@@ -15,6 +15,9 @@
 package com.mysqlservice.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.mysqlservice.model.Pet;
 import com.mysqlservice.service.base.PetLocalServiceBaseImpl;
 
@@ -30,7 +33,22 @@ import org.osgi.service.component.annotations.Component;
 	service = AopService.class
 )
 public class PetLocalServiceImpl extends PetLocalServiceBaseImpl {
+	
+	
+	// test customsql
 	public List<Pet> getPetsByName(String pName){
 		return petFinder.getPetsByName(pName);
 	}
+	public Pet addName(String name, ServiceContext serviceContext) throws PortalException, SystemException {
+		    
+		int IdPet = (int) counterLocalService.increment();
+		Pet pet = petPersistence.create(IdPet);  
+		pet.setPname(name);
+		    petPersistence.update(pet);
+    		return pet;
+	}
+	
+	
+	
+	
 }
