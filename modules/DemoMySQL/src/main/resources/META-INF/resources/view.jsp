@@ -147,32 +147,34 @@ label.col-form-label.mxn {
 <script>
 
 $(function() {
-	
-	  $('.custom-modal').click(function(e) {
-	    e.preventDefault();
-	    var mymodal = $('#myModal');
-	    mymodal.modal('show');
-	    var time_limit = 30;
-		var timerElement = $('#timer');
-		var time_out = setInterval(() => {
-			if (time_limit == 0) {
-				clearInterval(time_out);
-				mymodal.modal('hide');
-			} else {
-				if (time_limit < 10) {
-					time_limit = '0' + time_limit;
-				}
-				timerElement.html(time_limit);
-				time_limit -= 1;
-			}
-		}, 1000);
-		
+	var time_out;
+	 $('.custom-modal').click(function(e) {
+	      e.preventDefault();
+	      var mymodal = $('#myModal');
+	      mymodal.modal('show');
+	      var time_limit = 30;
+	      var timerElement = $('#timer');
+
+	      time_out = setInterval(() => {
+	        if (time_limit == 0) {
+	          clearInterval(time_out);
+	          mymodal.modal('hide');
+	        } else {
+	          if (time_limit < 10) {
+	            time_limit = '0' + time_limit;
+	          }
+	          timerElement.html(time_limit);
+	          time_limit -= 1;
+	        }
+	      }, 1000);
+	    });
+
+	    $('#myModal').on('hidden.bs.modal', function() {
+	      clearInterval(time_out); // Dừng đếm ngược khi modal ẩn
+	      time_limit = 30; // Đặt lại giá trị của time_limit về giá trị ban đầu
+	     //location.reload(); // Load lại trang sau khi modal được ẩn
+	    });
 	  });
-	    
-	  $('#myModal').on('hidden.bs.modal', function () {
-          location.reload(); // Load lại trang sau khi modal được ẩn
-      });
-	})
 </script>
 
 
