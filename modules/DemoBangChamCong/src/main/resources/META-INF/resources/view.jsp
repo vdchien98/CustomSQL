@@ -21,10 +21,7 @@
     </thead>
     <tbody>
  
-    <%--comment --%>     
-        <c:choose>
-                <c:when test="${ThuDauTiencuaThang == 2}">
-                 <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
+    <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
 							<c:if test="${loop.index % 7 == 0}">
 								<tr>
 							</c:if>
@@ -35,90 +32,6 @@
 								</tr>
 							</c:if>
 						</c:forEach>
-                </c:when>
-                 <c:when test="${ThuDauTiencuaThang == 3}">
-                 <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
-							<c:if test="${loop.index % 7 == 0}">
-								<tr>
-							</c:if>
-							    <td class="text-center" style="padding: 0;">
-										   ${NgayTrongThang}
-								</td>
-							<c:if test="${loop.index % 7 == 6}">
-								</tr>
-							</c:if>
-						</c:forEach>
-                </c:when>
-                 <c:when test="${ThuDauTiencuaThang == 4}">
-                 <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
-							<c:if test="${loop.index % 7 == 0}">
-								<tr>
-							</c:if>
-							    <td class="text-center" style="padding: 0;">
-										   ${NgayTrongThang}
-								</td>
-							<c:if test="${loop.index % 7 == 6}">
-								</tr>
-							</c:if>
-						</c:forEach>
-                </c:when>
-                 <c:when test="${ThuDauTiencuaThang == 5}">
-                 <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
-							<c:if test="${loop.index % 7 == 0}">
-								<tr>
-							</c:if>
-							    <td class="text-center" style="padding: 0;">
-										   ${NgayTrongThang}
-								</td>
-							<c:if test="${loop.index % 7 == 6}">
-								</tr>
-							</c:if>
-						</c:forEach>
-                </c:when>
-                 <c:when test="${ThuDauTiencuaThang == 6}">
-				      <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
-							<c:if test="${loop.index % 7 == 0}">
-								<tr>
-							</c:if>
-							    <td class="text-center" style="padding: 0;">
-										   ${NgayTrongThang}
-								</td>
-							<c:if test="${loop.index % 7 == 6}">
-								</tr>
-							</c:if>
-						</c:forEach>
-                </c:when>
-                 <c:when test="${ThuDauTiencuaThang == 7}">
-                 <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
-							<c:if test="${loop.index % 7 == 0}">
-								<tr>
-							</c:if>
-							    <td class="text-center" style="padding: 0;">
-										   ${NgayTrongThang}
-								</td>
-							<c:if test="${loop.index % 7 == 6}">
-								</tr>
-							</c:if>
-						</c:forEach>
-                </c:when>
-                 <c:when test="${ThuDauTiencuaThang == 8}">
-                 <c:forEach var="NgayTrongThang" items="${danhSachNgayTrongThang}" varStatus="loop">
-							<c:if test="${loop.index % 7 == 0}">
-								<tr>
-							</c:if>
-							    <td class="text-center" style="padding: 0;">
-										   ${NgayTrongThang}
-								</td>
-							<c:if test="${loop.index % 7 == 6}">
-								</tr>
-							</c:if>
-						</c:forEach>
-                </c:when>
-                <c:otherwise>
-                   
-                   
-                </c:otherwise>
-         </c:choose>
     
     </tbody>
 </table>
