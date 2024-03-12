@@ -42,7 +42,7 @@ public class DemoMySQLPortlet extends MVCPortlet {
 //		response.sendRedirect("/home");
 //
 //	}
-
+	
 	public void addPet(ActionRequest request, ActionResponse response) throws IOException, PortletException {
 		ServiceContext serviceContext = new ServiceContext();
 		

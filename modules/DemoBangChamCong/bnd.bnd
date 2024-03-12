@@ -1,0 +1,4 @@
+Bundle-Name: DemoBangChamCong
+Bundle-SymbolicName: com.liferay.docs.demobangchamcong.portlet
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.docs.demobangchamcong.portlet.constants
