@@ -1,0 +1,4 @@
+Bundle-Name: DemoTabs
+Bundle-SymbolicName: DemoTabs
+Bundle-Version: 1.0.0
+Export-Package: DemoTabs.constants
