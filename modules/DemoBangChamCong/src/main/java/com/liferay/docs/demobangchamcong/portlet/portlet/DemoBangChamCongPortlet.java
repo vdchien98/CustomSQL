@@ -4,6 +4,9 @@ import com.liferay.docs.demobangchamcong.portlet.constants.DemoBangChamCongPortl
 import com.liferay.portal.kernel.management.jmx.SetAttributeAction;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -14,6 +17,8 @@ import javax.portlet.Portlet;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 import javax.servlet.jsp.jstl.core.LoopTag;
 
 import org.osgi.service.component.annotations.Component;
@@ -53,7 +58,7 @@ public class DemoBangChamCongPortlet extends MVCPortlet {
 			danhSachNgayTrongThang.add(LocalDate.of(ngayHienTai.getYear(), ngayHienTai.getMonth(), i));
 		}
 
-		// In danh s�ch ng�y trong th�ng
+		// In danh sách ngày trong tháng
 		for (LocalDate NgayTrongThang : danhSachNgayTrongThang) {
 			int ngaytrongThangNay = NgayTrongThang.getDayOfMonth();
 			int currentIdx = danhSachNgayTrongThang.indexOf(NgayTrongThang) + 1;
@@ -78,18 +83,16 @@ public class DemoBangChamCongPortlet extends MVCPortlet {
 		}
 		System.out.println("ThuDauTiencuaThang " + ngaydautien);
 		renderRequest.setAttribute("ThuDauTiencuaThang", ngaydautien);
-		
-		
-		int soLuongNull = ngaydautien-2;
-		List<LocalDate> danhSachNgayTrongThangMoi = new ArrayList<>();
-        for (int i = 0; i < soLuongNull; i++) {
-            danhSachNgayTrongThangMoi.add(null);
-            System.out.println("da vao dc day ------ ");
-        }
-        danhSachNgayTrongThangMoi.addAll(danhSachNgayTrongThang);
 
-		
-        System.out.println("danhSachNgayTrongThang --- " + danhSachNgayTrongThang);
+		int soLuongNull = ngaydautien - 2;
+		List<LocalDate> danhSachNgayTrongThangMoi = new ArrayList<>();
+		for (int i = 0; i < soLuongNull; i++) {
+			danhSachNgayTrongThangMoi.add(null);
+			System.out.println("da vao dc day ------ ");
+		}
+		danhSachNgayTrongThangMoi.addAll(danhSachNgayTrongThang);
+
+		System.out.println("danhSachNgayTrongThang --- " + danhSachNgayTrongThang);
 		System.out.println("danhSachNgayTrongThang --- " + danhSachNgayTrongThangMoi);
 		renderRequest.setAttribute("danhSachNgayTrongThang", danhSachNgayTrongThangMoi);
 
@@ -99,4 +102,42 @@ public class DemoBangChamCongPortlet extends MVCPortlet {
 	public static DayOfWeek getDayOfWeek(LocalDate date) {
 		return date.getDayOfWeek();
 	}
+
+	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) throws IOException {
+		System.out.println("da va dc dc serveResource ----+++++++ ");
+		String fileUrl = "test.pdf";
+		// Đường dẫn đến thư mục chứa tệp PDF
+		String pdfDirectory = "D:\\CustomSQL\\liferay-ce-portal-tomcat-7.4.3.42-ga42-20220913145951615\\liferay-ce-portal-7.4.3.42-ga42\\filePdf\\test.pdf";
+
+		// Tạo đối tượng File cho tệp PDF
+		File pdfFile = new File(pdfDirectory);
+
+		System.out.println("da vao dc day roi 111111111111--------------------------" + pdfFile);
+
+		// Kiểm tra xem tệp PDF có tồn tại không
+		if (pdfFile.exists()) {
+			try (FileInputStream fileInputStream = new FileInputStream(pdfFile)) {
+
+				// Thiết lập các header cần thiết để trình duyệt hiểu tệp PDF
+				resourceResponse.setContentType("application/pdf");
+				resourceResponse.addProperty("Content-Disposition", "inline; filename=" + fileUrl);
+
+				byte[] buffer = new byte[4096];
+				int bytesRead;
+
+				while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+					resourceResponse.getPortletOutputStream().write(buffer, 0, bytesRead);
+				}
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				resourceResponse.getWriter().print("Tep PDF khong ton tai");
+			}
+
+		} else {
+			// Xử lý khi tệp PDF không tồn tại
+			resourceResponse.getWriter().print("Tep PDF khong ton tai");
+		}
+	}
+
 }

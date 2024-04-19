@@ -144,6 +144,25 @@ label.col-form-label.mxn {
 	</div>
 </div>
 
+
+<%-- tạo excel  --%>
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+
+<aui:button id="exportButton" type="button" value="Xuất Excel"  />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 
 $(function() {
