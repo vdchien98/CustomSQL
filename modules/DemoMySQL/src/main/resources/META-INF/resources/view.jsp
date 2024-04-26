@@ -1,6 +1,7 @@
 <%@ include file="/init.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
 <head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
@@ -54,16 +55,15 @@ div#timer {
 }
 
 p.box3 {
-	margin-left: 5px; 
-	font-size : 20px;
+	margin-left: 5px;
+	font-size: 20px;
 	font-weight: 400;
 	font-size: 20px;
 }
 
 label.col-form-label.mxn {
-    font-size: 20px;
+	font-size: 20px;
 }
-
 </style>
 
 
@@ -77,6 +77,10 @@ label.col-form-label.mxn {
 	<aui:button onClick="<%=addEntryURL.toString()%>" value="Thêm mới"></aui:button>
 </aui:button-row>
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.2/FileSaver.min.js"></script>
 
 
 <%-- datatable phân trang --%>
@@ -101,6 +105,39 @@ label.col-form-label.mxn {
 		</tbody>
 	</table>
 </div>
+
+<%-- Tạo excel --%>
+<aui:button id="exportButton" type="button" value="Xuất Excel" />
+
+<script>
+var fileSaver = require('file-saver');
+
+document.addEventListener('DOMContentLoaded', function() {
+    var exportButton = document.getElementById('exportButton');
+    exportButton.addEventListener('click', function() {
+        var table = document.getElementById('example');
+        var wb = XLSX.utils.table_to_book(table, {sheet: "Sheet JS"});
+        var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+        fileSaver.saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'C:\\Users\\User\\Downloads\\users.xlsx');
+    });
+});
+
+</script>
+
+
+
+
+
+
+
 
 
 <%-- xử lý popup in Bootstrap --%>
@@ -129,8 +166,8 @@ label.col-form-label.mxn {
 				</div>
 				<form>
 					<div class="form-group">
-						<label for="recipient-name" class="col-form-label mxn">Nhập mã
-							xác nhận </label> <input type="number" class="form-control"
+						<label for="recipient-name" class="col-form-label mxn">Nhập
+							mã xác nhận </label> <input type="number" class="form-control"
 							id="recipient-name">
 					</div>
 				</form>
@@ -145,10 +182,6 @@ label.col-form-label.mxn {
 </div>
 
 
-<%-- tạo excel  --%>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-
-<aui:button id="exportButton" type="button" value="Xuất Excel"  />
 
 
 

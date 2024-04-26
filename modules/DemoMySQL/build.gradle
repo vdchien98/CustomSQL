@@ -4,10 +4,20 @@ dependencies {
 	cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.1.0"
 	compileOnly project(":modules:mysqlservice:mysqlservice-api")
     compileOnly project(":modules:mysqlservice:mysqlservice-service")
-	// compileOnly group: "org.osgi.annotation.versioning", name: "org.osgi.annotation.versioning", version: "1.0.0"
-   // compileOnly group: "com.liferay", name: "com.liferay.osgi.util", version: "3.0.0"
-  //  compileInclude group: 'org.apache.poi', name: 'poi', version: '5.2.0'
-  //  compileInclude group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.0'
-  //  compileInclude group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
-	
+
+
+     // thư viện tạo excel
+compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.8-beta4'
+	compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '2.3.0'
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+	compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
+	compile group: 'org.apache.poi', name: 'poi', version: '3.8-beta4'
+	compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: '3.8-beta4'
+	compile group: 'stax', name: 'stax-api', version: '1.0.1'
+	compile group: 'xml-apis', name: 'xml-apis', version: '1.0.b2'
+	compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '2.3.0'
+	compile group: 'org.apache.poi', name: 'poi', version: '3.7'
+
+
+
 }
