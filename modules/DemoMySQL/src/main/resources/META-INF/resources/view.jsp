@@ -106,32 +106,17 @@ label.col-form-label.mxn {
 	</table>
 </div>
 
-<%-- Tạo excel --%>
-<aui:button id="exportButton" type="button" value="Xuất Excel" />
+<%-- Mở Excel excel --%>
 
-<script>
-var fileSaver = require('file-saver');
 
-document.addEventListener('DOMContentLoaded', function() {
-    var exportButton = document.getElementById('exportButton');
-    exportButton.addEventListener('click', function() {
-        var table = document.getElementById('example');
-        var wb = XLSX.utils.table_to_book(table, {sheet: "Sheet JS"});
-        var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
 
-        function s2ab(s) {
-            var buf = new ArrayBuffer(s.length);
-            var view = new Uint8Array(buf);
-            for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-            return buf;
-        }
+<portlet:actionURL name="OpenExxcel" var="OpenExxcelURL" />
+<form id="form" method="POST"
+	action="<%=OpenExxcelURL.toString()%>"
+	name="<portlet:namespace />fm">
+	<button class="btn btn-primary" type="submit">Opeb file Excel</button>
 
-        fileSaver.saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'C:\\Users\\User\\Downloads\\users.xlsx');
-    });
-});
-
-</script>
-
+</form>
 
 
 

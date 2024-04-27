@@ -27,9 +27,14 @@ import javax.portlet.RenderResponse;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.osgi.service.component.annotations.Component;
 
@@ -64,6 +69,12 @@ public class DemoMySQLPortlet extends MVCPortlet {
 			e.printStackTrace();
 		}
 	}
+	
+	public void OpenExxcel(ActionRequest request, ActionResponse response) throws IOException, PortletException {
+		ServiceContext serviceContext = new ServiceContext();
+      System.out.println("da va dc day ---- ");
+	
+	}
 
 	public void render(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
@@ -74,67 +85,65 @@ public class DemoMySQLPortlet extends MVCPortlet {
 		HttpServletRequest httpServletRequest = PortalUtil.getHttpServletRequest(renderRequest);
 		List<Pet> usersList = PetLocalServiceUtil.getPets(-1, -1);
 		httpServletRequest.setAttribute("usersList", usersList);
-	
+
+		List<Pet> petsList = PetLocalServiceUtil.getPets(-1, -1);
+
+		// Khởi tạo workbook và tạo một sheet mới
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet("Pets");
+
+		// Tạo hàng header
+		HSSFRow headerRow = sheet.createRow(0);
+		headerRow.createCell(0).setCellValue("ID");
+		headerRow.createCell(1).setCellValue("Name");
+		// Thêm các cột khác nếu cần
+
 		
-	
-		
-		  try {
-	            // Declare file name to be created
-	            String filename = "C:\\Users\\User\\Downloads\\excel\\sample.xls";
+		HSSFCellStyle headerCellStyle = workbook.createCellStyle();
 
-	            // Creating an instance of HSSFWorkbook class
-	            HSSFWorkbook workbook = new HSSFWorkbook();
+		// Tạo một font mới và thiết lập font chữ và màu
+		HSSFFont headerFont = workbook.createFont();
+		headerFont.setFontName("Times New Roman");
+		headerFont.setFontHeightInPoints((short) 12);
+		headerFont.setColor(IndexedColors.ORANGE.getIndex());
+		headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD); // hoặc headerFont.setBold(true);
 
-	            // Invoking createSheet() method and passing the name of the sheet to be created
-	            HSSFSheet sheet = workbook.createSheet("January");
+		// Áp dụng font vào CellStyle
+		headerCellStyle.setFont(headerFont);
 
-	            // Creating the 0th row using the createRow() method
-	            HSSFRow rowhead = sheet.createRow((short) 0);
+		// Thiết lập màu nền cho CellStyle
+		headerCellStyle.setFillForegroundColor(IndexedColors.YELLOW.getIndex()); // Yellow là một lựa chọn gần giống với màu của btn-warning
+		headerCellStyle.setFillPattern((short) FillPatternType.SOLID_FOREGROUND.ordinal());
 
-	            // Creating cells by using the createCell() method and setting the values to the cells by using the setCellValue() method
-	            rowhead.createCell(0).setCellValue("S.No.");
-	            rowhead.createCell(1).setCellValue("Customer Name");
-	            rowhead.createCell(2).setCellValue("Account Number");
-	            rowhead.createCell(3).setCellValue("e-mail");
-	            rowhead.createCell(4).setCellValue("Balance");
-
-	            // Creating the 1st row
-	            HSSFRow row = sheet.createRow((short) 1);
-
-	            // Inserting data in the first row
-	            row.createCell(0).setCellValue("1");
-	            row.createCell(1).setCellValue("John William");
-	            row.createCell(2).setCellValue("9999999");
-	            row.createCell(3).setCellValue("william.john@gmail.com");
-	            row.createCell(4).setCellValue("700000.00");
-
-	            // Creating the 2nd row
-	            HSSFRow row1 = sheet.createRow((short) 2);
-
-	            // Inserting data in the second row
-	            row1.createCell(0).setCellValue("2");
-	            row1.createCell(1).setCellValue("Mathew Parker");
-	            row1.createCell(2).setCellValue("22222222");
-	            row1.createCell(3).setCellValue("parker.mathew@gmail.com");
-	            row1.createCell(4).setCellValue("200000.00");
-
-	            // Creating FileOutputStream to write data into file
-	            FileOutputStream fileOut = new FileOutputStream(filename);
-
-	            // Writing data into the workbook
-	            workbook.write(fileOut);
-
-	            // Closing the FileOutputStream
-	            fileOut.close();
-
-	            // Prints the message on the console
-	            System.out.println("Excel file has been generated successfully.");
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
+		// Áp dụng CellStyle vào các ô trong hàng header
+		for (int i = 0; i < headerRow.getLastCellNum(); i++) {
+		    headerRow.getCell(i).setCellStyle(headerCellStyle);
+		}
 		
 		
 		
+		
+		
+		
+		
+		// Lặp qua danh sách pets và tạo hàng cho mỗi pet
+		int rowNum = 1; // Bắt đầu từ hàng thứ nhất, vì hàng đầu tiên đã là header
+		for (Pet pet : petsList) {
+			HSSFRow row = sheet.createRow(rowNum++);
+			row.createCell(0).setCellValue(pet.getPid());
+			row.createCell(1).setCellValue(pet.getPname());
+			// Thêm dữ liệu cho các cột khác nếu cần
+		}
+
+		// Lưu workbook vào một file Excel
+		String filename = "C:\\Users\\User\\Downloads\\excel\\pets.xls";
+		try (FileOutputStream fileOut = new FileOutputStream(filename)) {
+			workbook.write(fileOut);
+			System.out.println("Excel file has been generated successfully.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		super.render(renderRequest, renderResponse);
 	}
 
