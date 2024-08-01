@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
+
 <head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
@@ -110,19 +111,21 @@ label.col-form-label.mxn {
 
 
 
+
 <portlet:actionURL name="OpenExxcel" var="OpenExxcelURL" />
-<form id="form" method="POST"
-	action="<%=OpenExxcelURL.toString()%>"
-	name="<portlet:namespace />fm">
-	<button class="btn btn-primary" type="submit">Opeb file Excel</button>
-
-</form>
-
-
-
-
-
-
+<%-- hành động download về máy  --%>
+<button class="btn btn-primary" id="downloadButton" type="submit">Open file Excel</button>
+<script type="text/javascript">
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            // Khi nút được nhấp, gửi form để tải file
+            console.log(" đã vào đc đây rồi !!!!!!!!!!!!! ")
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '<%= OpenExxcelURL.toString() %>';
+            document.body.appendChild(form);
+            form.submit();
+});
+</script>
 
 
 <%-- xử lý popup in Bootstrap --%>
